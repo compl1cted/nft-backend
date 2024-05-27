@@ -1,0 +1,8 @@
+{
+  "watch": ["src"],
+  "ext": "ts,json",
+  "exec": "cls && npm run build && node --env-file=env/.env.dev --trace-warnings dist/main.js",
+  "execMap": {
+    "ts": "ts-node"
+  }
+}

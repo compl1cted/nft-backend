@@ -1,0 +1,1 @@
+export const MAX_CONNECTION_ATTEMPTS = 10;

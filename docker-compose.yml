@@ -1,0 +1,33 @@
+name: "nft"
+version: '3.7'
+services:
+  database:
+    image: postgres:10.5
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=nft
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./data:/var/lib/postgresql/data
+  node_api:
+    build:
+      dockerfile: DockerNode
+      context: ./
+      target: base
+    env_file:
+      - env/.env.prod
+    command: npm run prod
+    ports:
+      - "9010:9010"
+    container_name: node_api
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_started
